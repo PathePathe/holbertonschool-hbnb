@@ -1,61 +1,52 @@
 classDiagram
-
-%% ENTITY CLASSES
-
-class BaseModel {
-    +UUID id
-    +datetime created_at
-    +datetime updated_at
-    +save()
-    +to_dict()
+%% Packages
+package PresentationLayer {
+    class APIService
+    class UserController
+    class PlaceController
+    class ReviewController
+    class AmenityController
 }
 
-class User {
-    +string email
-    +string password
-    +string first_name
-    +string last_name
-    +list<Place> places
-    +list<Review> reviews
-    +get_full_name()
+package BusinessLogicLayer {
+    class Facade {
+        +get_user()
+        +create_place()
+        +add_review()
+        +list_amenities()
+    }
+    class User
+    class Place
+    class Review
+    class Amenity
 }
 
-class Place {
-    +string name
-    +string description
-    +int number_rooms
-    +int number_bathrooms
-    +int max_guests
-    +float price_by_night
-    +string city_id
-    +string user_id
-    +list<Review> reviews
-    +list<Amenity> amenities
-    +get_amenities()
+package PersistenceLayer {
+    class UserRepository
+    class PlaceRepository
+    class ReviewRepository
+    class AmenityRepository
+    class Database
 }
 
-class Review {
-    +string text
-    +string user_id
-    +string place_id
-    +get_summary()
-}
+%% Relationships
+APIService --> Facade : calls
+UserController --> Facade : uses
+PlaceController --> Facade : uses
+ReviewController --> Facade : uses
+AmenityController --> Facade : uses
 
-class Amenity {
-    +string name
-}
+Facade --> User : uses
+Facade --> Place : uses
+Facade --> Review : uses
+Facade --> Amenity : uses
 
-%% INHERITANCE
-User --|> BaseModel
-Place --|> BaseModel
-Review --|> BaseModel
-Amenity --|> BaseModel
+User --> UserRepository : accesses
+Place --> PlaceRepository : accesses
+Review --> ReviewRepository : accesses
+Amenity --> AmenityRepository : accesses
 
-%% RELATIONSHIPS
-User "1" --> "0..*" Place : owns >
-User "1" --> "0..*" Review : writes >
-Place "1" --> "0..*" Review : receives >
-Place "1" --> "0..*" Amenity : has >
-Review "1" --> "1" User : written by >
-Review "1" --> "1" Place : about >
-Amenity "*" --> "*" Place : available in >
+UserRepository --> Database : CRUD
+PlaceRepository --> Database : CRUD
+ReviewRepository --> Database : CRUD
+AmenityRepository --> Database : CRUD
