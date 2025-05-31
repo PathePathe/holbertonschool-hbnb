@@ -1,37 +1,30 @@
-# HBnB Three-Layer Package Diagram
-
-```mermaid
 classDiagram
 
-%% Packages
-package PresentationLayer {
-    class APIService
-    class UserController
-    class PlaceController
-    class ReviewController
-    class AmenityController
-}
+%% Presentation Layer
+class APIService
+class UserController
+class PlaceController
+class ReviewController
+class AmenityController
 
-package BusinessLogicLayer {
-    class Facade {
-        +get_user()
-        +create_place()
-        +add_review()
-        +list_amenities()
-    }
-    class User
-    class Place
-    class Review
-    class Amenity
+%% Business Logic Layer
+class Facade {
+    +get_user()
+    +create_place()
+    +add_review()
+    +list_amenities()
 }
+class User
+class Place
+class Review
+class Amenity
 
-package PersistenceLayer {
-    class UserRepository
-    class PlaceRepository
-    class ReviewRepository
-    class AmenityRepository
-    class Database
-}
+%% Persistence Layer
+class UserRepository
+class PlaceRepository
+class ReviewRepository
+class AmenityRepository
+class Database
 
 %% Relationships
 APIService --> Facade : calls
