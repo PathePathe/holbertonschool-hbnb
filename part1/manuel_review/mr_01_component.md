@@ -1,4 +1,8 @@
+# HBnB Three-Layer Package Diagram
+
+```mermaid
 classDiagram
+
 %% Packages
 package PresentationLayer {
     class APIService
