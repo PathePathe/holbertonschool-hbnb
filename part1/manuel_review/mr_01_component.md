@@ -1,5 +1,4 @@
-classDiagram
-    package PresentationLayer {
+ package PresentationLayer {
         class APIService
         class UserController
         class PlaceController
@@ -48,4 +47,3 @@ classDiagram
     PlaceRepository --> Database : CRUD
     ReviewRepository --> Database : CRUD
     AmenityRepository --> Database : CRUD
-
