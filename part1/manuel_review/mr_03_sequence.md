@@ -26,3 +26,22 @@ UserModel-->>Facade: Return user
 Facade-->>API: Return created user
 API-->>Client: 201 Created + user info
 
+sequenceDiagram
+participant Client
+participant API
+participant Facade
+participant PlaceModel
+participant PlaceRepository
+participant Database
+
+Client->>API: POST /places (name, city_id, user_id, ...)
+API->>Facade: create_place(data)
+Facade->>PlaceModel: validate_and_create(data)
+PlaceModel->>PlaceRepository: save(place)
+PlaceRepository->>Database: INSERT place
+Database-->>PlaceRepository: OK
+PlaceRepository-->>PlaceModel: Place saved
+PlaceModel-->>Facade: Return place
+Facade-->>API: Return created place
+API-->>Client: 201 Created + place info
+
